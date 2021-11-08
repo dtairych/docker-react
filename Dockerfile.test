@@ -1,0 +1,17 @@
+FROM node:16-alpine
+
+RUN adduser --disabled-password --gecos '' dtairych
+
+USER dtairych
+
+RUN mkdir -p /home/dtairych/app
+
+WORKDIR '/home/dtairych/app'
+
+COPY --chown=dtairych ./package.json ./
+
+RUN npm install
+
+COPY --chown=dtairych ./ ./ 
+
+CMD ["npm", "run", "start"]
